@@ -18,7 +18,7 @@ public class Repositorio {
 
 	private List<Reserva> reservas = new ArrayList<Reserva>();
 
-	
+	//java -cp ./WebContent/WEB-INF/lib/hsqldb.jar org.hsqldb.server.Server --database.0 file:./WebContent/WEB-INF/lib/banco --dbname.0 banco
 
 	public Repositorio() {
 		Usuario usuario = new Usuario();
