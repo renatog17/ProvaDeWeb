@@ -8,6 +8,17 @@ public class Usuario {
 	
 	private String senha;
 
+	
+	
+	public Usuario() {
+	}
+
+	public Usuario(Integer id, String login) {
+		super();
+		this.id = id;
+		this.login = login;
+	}
+
 	public Integer getId() {
 		return id;
 	}

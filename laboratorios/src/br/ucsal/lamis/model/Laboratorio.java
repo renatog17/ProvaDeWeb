@@ -9,6 +9,24 @@ public class Laboratorio {
 	private String descricao;
 	
 	private Bloco bloco;
+	
+	public Laboratorio() {
+		
+	}
+
+	public Laboratorio(String nome, Bloco bloco) {
+		super();
+		this.nome = nome;
+		this.bloco = bloco;
+	}
+
+	public Laboratorio(Integer id, String nome, String descricao, Bloco bloco) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.descricao = descricao;
+		this.bloco = bloco;
+	}
 
 	public Integer getId() {
 		return id;

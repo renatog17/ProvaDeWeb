@@ -4,60 +4,57 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-import br.ucsal.lamis.model.Usuario;
+import br.ucsal.lamis.model.Bloco;
 import br.ucsal.lamis.util.BancoUtil;
 
-public class UsuarioDAO {
+public class BlocoDAO {
 
-	public static Usuario autenticador(Usuario u) {
-		boolean autenticado = false;
+	public static List<Bloco> buscarBlocos() {
+		List<Bloco> blocos = new ArrayList<Bloco>();
 		Connection c = BancoUtil.getConnection();
 		try {
-			String sql = "select * from usuario where login=? and senha=?;";
+			String sql = "select * from bloco;";
 			PreparedStatement pstmt = c.prepareStatement(sql);
-			pstmt.setString(1, u.getLogin());
-			pstmt.setString(2, u.getSenha());
 			ResultSet rs = pstmt.executeQuery();
-			if(rs.next()) {
-				autenticado = true;
-				u.setId(Integer.parseInt(rs.getString(1)));
+			while(rs.next()) {
+				
+				int id = Integer.parseInt(rs.getString(1));
+				String nome = rs.getString(2);
+				Bloco bloco = new Bloco(id, nome);
+				blocos.add(bloco);
 			}
 			rs.close();
 			pstmt.close();
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}
-		if (autenticado) {
-			
-			return u;
-		}else {
-			return null;
+		
+		return blocos;
 		}
-	}
 
-	public static Usuario buscarUsuario(int id) {
-		Usuario usuario = null;
+	public static Bloco buscarBloco(int id) {
+		Bloco bloco = null;
 		Connection c = BancoUtil.getConnection();
 		try {
 			
-			String sql = "select * from usuario where usuario_id=?;";
+			String sql = "select * from bloco where bloco_id=?;";
 			PreparedStatement pstmt = c.prepareStatement(sql);
 			pstmt.setInt(1, id);
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
 				
-				int idUsuario = Integer.parseInt(rs.getString(1));
-				String login = rs.getString(2);
-				usuario = new Usuario(idUsuario, login);
+				int idBloco = Integer.parseInt(rs.getString(1));
+				String nome = rs.getString(2);
+				bloco = new Bloco(id, nome);
 			}
 			rs.close();
 			pstmt.close();
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return usuario;
+		return bloco;
 	}
-	
-	
 }

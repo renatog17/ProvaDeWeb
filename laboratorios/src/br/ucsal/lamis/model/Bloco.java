@@ -5,6 +5,15 @@ public class Bloco {
 	private Integer id;
 	private String nome;
 	
+	public Bloco() {
+		
+	}
+	
+	public Bloco(Integer id, String nome) {
+		super();
+		this.id = id;
+		this.nome = nome;
+	}
 	public Integer getId() {
 		return id;
 	}

@@ -7,7 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.ucsal.lamis.util.Repositorio;
+import br.ucsal.lamis.dao.LaboratorioDAO;
+import br.ucsal.lamis.dao.ReservaDAO;
 
 /**
  * Servlet implementation class ReservaExcluirServlet
@@ -26,10 +27,11 @@ public class ReservaExcluirServlet extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Repositorio repositorio = (Repositorio) request.getSession().getServletContext().getAttribute("repositorio");
+		//Repositorio repositorio = (Repositorio) request.getSession().getServletContext().getAttribute("repositorio");
 
 		String sId = request.getParameter("id");
-		repositorio.removerReserva(Integer.parseInt(sId));
+		ReservaDAO.removerReserva(Integer.parseInt(sId));
+		//repositorio.removerReserva(Integer.parseInt(sId));
 		response.sendRedirect("./ReservasLista");
 		
 	}

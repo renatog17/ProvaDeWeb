@@ -12,9 +12,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.ucsal.lamis.dao.LaboratorioDAO;
+import br.ucsal.lamis.dao.ReservaDAO;
 import br.ucsal.lamis.model.Reserva;
 import br.ucsal.lamis.model.Usuario;
-import br.ucsal.lamis.util.Repositorio;
 
 /**
  * Servlet implementation class ReservaSalvarServlet
@@ -33,7 +34,7 @@ public class ReservaSalvarServlet extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Repositorio repositorio = (Repositorio) request.getSession().getServletContext().getAttribute("repositorio");
+		//Repositorio repositorio = (Repositorio) request.getSession().getServletContext().getAttribute("repositorio");
 		DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("H:mm");
 		int idLab = Integer.parseInt(request.getParameter("laboratorio"));
@@ -55,38 +56,42 @@ public class ReservaSalvarServlet extends HttpServlet {
 		reserva.setHoraFim(horaFim);
 		reserva.setHoraInicio(horaInicio);
 		reserva.setId(1);
-		reserva.setLaboratorio(repositorio.obterLaboratorio(idLab));
+		reserva.setLaboratorio(LaboratorioDAO.buscarLaboratorio(idLab));
+		//reserva.setLaboratorio(repositorio.obterLaboratorio(idLab));
 		reserva.setObjetivo(objetivo);
 		
 		Usuario u = (Usuario) request.getSession().getAttribute("usuario");
+		System.out.println(u.getLogin());
+		System.out.println(u.getSenha());
 		reserva.setUsuario(u);
-		repositorio.inserirReserva(reserva);
+		//repositorio.inserirReserva(reserva);
+		ReservaDAO.inserirReserva(reserva);
 		response.sendRedirect("./ReservasLista");
 		
 		
 	}
 
-	public boolean possibilidadeInserirNovaReserva(LocalTime inicio, LocalTime fim, LocalDate data, Repositorio r){
-		List<Reserva> reservas = r.getReservas();
-		for (Reserva reserva : reservas) {
-			if(reserva.getDiaDaReserva().getYear()==data.getYear()) {
-				if(reserva.getDiaDaReserva().getMonth()==data.getMonth()) {
-					if (reserva.getDiaDaReserva().getDayOfMonth()==data.getDayOfMonth()) {
-						if(inicio.getHour()>=reserva.getHoraInicio().getHour() && inicio.getHour()<=reserva.getHoraFim().getHour()) {
-							return false;
-						}else {
-							if(fim.getHour()<=reserva.getHoraFim().getHour()&& fim.getHour()>= reserva.getHoraInicio().getHour()
-									&& fim.getHour()<=reserva.getHoraFim().getHour()) {
-								return false;
-							
-							}
-						}
-						
-					}
-				}
-			}
-		}
-		
-		return true;
-	}
+//	public boolean possibilidadeInserirNovaReserva(LocalTime inicio, LocalTime fim, LocalDate data, Repositorio r){
+//		List<Reserva> reservas = r.getReservas();
+//		for (Reserva reserva : reservas) {
+//			if(reserva.getDiaDaReserva().getYear()==data.getYear()) {
+//				if(reserva.getDiaDaReserva().getMonth()==data.getMonth()) {
+//					if (reserva.getDiaDaReserva().getDayOfMonth()==data.getDayOfMonth()) {
+//						if(inicio.getHour()>=reserva.getHoraInicio().getHour() && inicio.getHour()<=reserva.getHoraFim().getHour()) {
+//							return false;
+//						}else {
+//							if(fim.getHour()<=reserva.getHoraFim().getHour()&& fim.getHour()>= reserva.getHoraInicio().getHour()
+//									&& fim.getHour()<=reserva.getHoraFim().getHour()) {
+//								return false;
+//							
+//							}
+//						}
+//						
+//					}
+//				}
+//			}
+//		}
+//		
+//		return true;
+//	}
 }

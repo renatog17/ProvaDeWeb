@@ -18,7 +18,6 @@ import br.ucsal.lamis.model.Usuario;
 @WebServlet("/Login")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private UsuarioDAO usuarioDAO= new UsuarioDAO();
 	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -35,7 +34,7 @@ public class LoginServlet extends HttpServlet {
 		usuario.setLogin(login);
 		usuario.setSenha(senha);
 		
-		if(usuarioDAO.autenticador(usuario)) {
+		if(UsuarioDAO.autenticador(usuario)!=null) {
 			request.getSession().setAttribute("usuario", usuario);
 			response.sendRedirect("./Painel");
 		}else {

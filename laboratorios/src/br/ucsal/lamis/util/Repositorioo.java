@@ -8,7 +8,7 @@ import br.ucsal.lamis.model.Laboratorio;
 import br.ucsal.lamis.model.Reserva;
 import br.ucsal.lamis.model.Usuario;
 
-public class Repositorio {
+public class Repositorioo {
 	
 	private List<Laboratorio> laboratorios = new ArrayList<Laboratorio>();  
 	
@@ -20,7 +20,7 @@ public class Repositorio {
 
 	//java -cp ./WebContent/WEB-INF/lib/hsqldb.jar org.hsqldb.server.Server --database.0 file:./WebContent/WEB-INF/lib/banco --dbname.0 banco
 
-	public Repositorio() {
+	public Repositorioo() {
 		Usuario usuario = new Usuario();
 		usuario.setId(1);
 		usuario.setLogin("admin");
