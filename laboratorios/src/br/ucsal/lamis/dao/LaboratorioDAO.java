@@ -18,7 +18,6 @@ public class LaboratorioDAO {
 	public static void inserirLaboratorio(Laboratorio l) {
 	Connection c = BancoUtil.getConnection();
 	try {
-		System.out.println("cheguei aqui 2");
 		String sql = "insert into laboratorio (nome, descricao, bloco_id) values(?, ?, ?);";
 		
 		PreparedStatement pstmt = c.prepareStatement(sql);
@@ -38,6 +37,31 @@ public class LaboratorioDAO {
 	}
 	}
 	
+	public static void editarLaboratorio(Laboratorio l) {
+	Connection c = BancoUtil.getConnection();
+	try {
+		String sql = "UPDATE laboratorio " + 
+				"set nome=?, descricao = ?, bloco_id = ? " + 
+				"where laboratorio_id = ?;";
+		
+		PreparedStatement pstmt = c.prepareStatement(sql);
+		pstmt.setString(1, l.getNome());
+		pstmt.setString(2, l.getDescricao());
+		pstmt.setInt(3, l.getBloco().getId());
+		pstmt.setInt(4, l.getId());
+		int n = l.getBloco().getId();
+		pstmt.executeUpdate();
+		pstmt.close();
+//		if(i==1) {
+//			System.out.println("Update sucesso");
+//		}else {
+//			System.out.println("falhou");
+//		}
+	}catch (SQLException e) {
+		e.printStackTrace();
+	}
+	}
+
 	public static List<Laboratorio> buscarLaboratorios() {
 	List<Laboratorio> laboratorios = new ArrayList<Laboratorio>();
 	Connection c = BancoUtil.getConnection();

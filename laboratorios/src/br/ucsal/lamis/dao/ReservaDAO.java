@@ -71,7 +71,6 @@ public class ReservaDAO {
 		String diaDaReserva = r.getDiaDaReserva().format(dateFormat);
 		String horaInicio = r.getHoraInicio().format(timeFormat);
 		String horaFim = r.getHoraFim().format(timeFormat);
-		System.out.println(r.getUsuario().getId());
 		
 		Connection c = BancoUtil.getConnection();
 		try {

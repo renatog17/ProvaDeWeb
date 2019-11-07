@@ -12,6 +12,7 @@
 	<table border="1">
 		<thead>
 			<tr>
+				<th>Id</th>
 				<th>Nome</th>
 				<th>Bloco</th>
 				<th><a href="./LaboratorioForm" >Novo Laboratorio</a></th>
@@ -20,6 +21,7 @@
 		<tbody>
 			<c:forEach var="l" items="${laboratorios}">
 			<tr>
+				<td>${l.id}</td>
 				<td>${l.nome}</td>
 				<td>${l.bloco.nome}</td>
 				<td><a href='./LaboratorioForm?id=${l.id}'>Editar</a> | <a

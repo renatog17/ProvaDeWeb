@@ -24,7 +24,6 @@ public class LaboratorioSalvarServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Laboratorio laboratorio= new Laboratorio();
-		System.out.println("cheguei aqui");
 		//<input type="hidden" name="id" > 
 		String sId = request.getParameter("id");
 
@@ -42,16 +41,19 @@ public class LaboratorioSalvarServlet extends HttpServlet {
 		//Laboratorio laboratorio = null;
 		if(sId != null && !sId.trim().isEmpty() ) {
 			//laboratorio = repositorio.obterLaboratorio(Integer.parseInt(sId));
-			laboratorio = LaboratorioDAO.buscarLaboratorio(Integer.parseInt(sId));
+			//laboratorio = LaboratorioDAO.buscarLaboratorio(Integer.parseInt(sId));
+			laboratorio.setNome(nome);
+			laboratorio.setDescricao(descricao);
+			laboratorio.setBloco(BlocoDAO.buscarBloco(Integer.parseInt(sIdBloco)));
+			laboratorio.setId(Integer.parseInt(request.getParameter("id")));
+			LaboratorioDAO.editarLaboratorio(laboratorio);
 		}else {
-			laboratorio = new Laboratorio();
+			laboratorio.setNome(nome);
+			laboratorio.setDescricao(descricao);
+			laboratorio.setBloco(BlocoDAO.buscarBloco(Integer.parseInt(sIdBloco)));
+			//System.out.println(laboratorio.getNome());
+			LaboratorioDAO.inserirLaboratorio(laboratorio);
 		}
-		laboratorio.setNome(nome);
-		laboratorio.setDescricao(descricao);
-		System.out.println(Integer.parseInt(sIdBloco)+">>>>>>>>");
-		laboratorio.setBloco(BlocoDAO.buscarBloco(Integer.parseInt(sIdBloco)));
-		System.out.println(laboratorio.getNome());
-		LaboratorioDAO.inserirLaboratorio(laboratorio);
 		//repositorio.salvarLaboratorio(laboratorio);
 		
 		response.sendRedirect("./LaboratorioLista");
